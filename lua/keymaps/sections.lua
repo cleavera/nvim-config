@@ -1,0 +1,3 @@
+return {
+  f = { desc = "Finder" }
+}
