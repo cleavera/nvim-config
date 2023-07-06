@@ -25,13 +25,18 @@ return {
         return file_name:sub(0, #file_name - 4)
       end
 
+      local function script_path()
+        local str = debug.getinfo(2, "S").source:sub(2)
+        return str:match("(.*/)")
+      end
+
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
       local server_names = {}
       local lsp_setups = {}
 
-      local lsps = require("plenary.scandir").scan_dir("./lua/plugins/config/lsp", { add_dirs = false })
+      local lsps = require("plenary.scandir").scan_dir(script_path() .. "../config/lsp", { add_dirs = false })
       for _,lsp in ipairs(lsps) do
         local l = require("plugins.config.lsp." .. get_file_name(lsp))
         table.insert(server_names, l.name)
@@ -45,7 +50,7 @@ return {
       })
 
       for _,setup in ipairs(lsp_setups) do
-        setup()
+        setup(on_attach, capabilities)
       end
     end
   }
