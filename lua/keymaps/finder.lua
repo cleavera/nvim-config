@@ -5,7 +5,7 @@ which_key.register({
 
 local telescope = require("telescope.builtin")
 
-vim.keymap.set('n', '<leader>ff', telescope.find_files, { desc = "Find file" })
+vim.keymap.set('n', '<leader>ff', telescope.git_files, { desc = "Find file" })
 vim.keymap.set('n', '<leader>fg', telescope.live_grep, { desc = "Search files" })
 vim.keymap.set('n', '<leader>fb', telescope.buffers, { desc = "Find buffer" })
 vim.keymap.set('n', '<leader>fh', telescope.help_tags, { desc = "Search help" })
