@@ -14,3 +14,4 @@ o.expandtab = true -- Convert tabs to spaces.
 o.smartindent = true -- Non-strict cindent.
 o.number = true -- Enable line numbers
 o.laststatus = 3 -- Single status bar
+o.showtabline = 2

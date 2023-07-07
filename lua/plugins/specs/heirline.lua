@@ -38,7 +38,11 @@ return {
         require("plugins.config.heirline.space"),
         require("plugins.config.heirline.file-progress"),
         require("plugins.config.heirline.space"),
-      }
+      },
+      tabline = {
+        require("plugins.config.heirline.explorer-padding"),
+        require("plugins.config.heirline.buffers"),
+      },
     }
   end,
   config = function(_, opts)
