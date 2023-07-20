@@ -6,6 +6,11 @@ which_key.register({
 vim.keymap.set('n', '<leader>bc', function()
   vim.api.nvim_buf_delete(vim.api.nvim_get_current_buf(), {})
 end, { desc = "Close" })
+
+vim.keymap.set('n', '<leader>bs', function()
+  vim.api.nvim_set_current_buf(vim.api.nvim_create_buf(false, true))
+end, { desc = "Scratch buffer" })
+
 vim.keymap.set('n', '<leader>bj', function()
   local bufs = vim.api.nvim_list_bufs()
   local current_buf = vim.api.nvim_get_current_buf()
@@ -21,6 +26,7 @@ vim.keymap.set('n', '<leader>bj', function()
     vim.api.nvim_set_current_buf(next_buf)
   end
 end, { desc = "Next" })
+
 vim.keymap.set('n', '<leader>bk', function()
   local bufs = vim.api.nvim_list_bufs()
   local current_buf = vim.api.nvim_get_current_buf()
