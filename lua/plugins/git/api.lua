@@ -107,7 +107,7 @@ M.revertAll = function()
 end
 
 M.quickCommit = function()
-  local message = vim.fn.input('Commit message')
+  local message = vim.fn.input('Commit message: ')
   vim.api.nvim_exec2("!git commit -m=\"" .. message .. "\"", { output = true })
 end
 
