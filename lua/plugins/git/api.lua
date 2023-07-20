@@ -90,7 +90,7 @@ M.add = function(file)
   vim.api.nvim_exec2("!git add " .. file, { output = true })
 end
 
-M.addAll = function()
+M.add_all = function()
   vim.api.nvim_exec2("!git add -A", { output = true })
 end
 
@@ -102,11 +102,11 @@ M.revert = function(file)
   vim.api.nvim_exec2("!git checkout -- " .. file, { output = true })
 end
 
-M.revertAll = function()
+M.revert_all = function()
   vim.api.nvim_exec2("!git checkout HEAD", { output = true })
 end
 
-M.quickCommit = function()
+M.quick_commit = function()
   local message = vim.fn.input('Commit message: ')
   vim.api.nvim_exec2("!git commit -m=\"" .. message .. "\"", { output = true })
 end

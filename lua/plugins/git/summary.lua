@@ -52,8 +52,8 @@ function Handler:add()
   end
 end
 
-function Handler:addAll()
-  api.addAll()
+function Handler:add_all()
+  api.add_all()
   M:render(M.buf)
 end
 
@@ -85,7 +85,7 @@ function Handler:open()
 end
 
 function Handler:quick_commit()
-  api.quickCommit()
+  api.quick_commit()
   M:render(M.buf)
 end
 
@@ -217,7 +217,7 @@ function M:render(b)
   local handler_commands = {
     close = "lua require(\"plugins.git.summary\")._handlers:close()",
     add = "lua require(\"plugins.git.summary\")._handlers:add()",
-    addAll = "lua require(\"plugins.git.summary\")._handlers:addAll()",
+    add_all = "lua require(\"plugins.git.summary\")._handlers:add_all()",
     unstage = "lua require(\"plugins.git.summary\")._handlers:unstage()",
     revert = "lua require(\"plugins.git.summary\")._handlers:revert()",
     open = "lua require(\"plugins.git.summary\")._handlers:open()",
@@ -228,7 +228,7 @@ function M:render(b)
 
   vim.api.nvim_buf_set_keymap(b, "n", "<Esc>", exec_handler(handler_commands.close), {})
   vim.api.nvim_buf_set_keymap(b, "n", "a", exec_handler(handler_commands.add), {})
-  vim.api.nvim_buf_set_keymap(b, "n", "A", exec_handler(handler_commands.addAll), {})
+  vim.api.nvim_buf_set_keymap(b, "n", "A", exec_handler(handler_commands.add_all), {})
   vim.api.nvim_buf_set_keymap(b, "n", "u", exec_handler(handler_commands.unstage), {})
   vim.api.nvim_buf_set_keymap(b, "n", "r", exec_handler(handler_commands.revert), {})
   vim.api.nvim_buf_set_keymap(b, "n", "o", exec_handler(handler_commands.open), {})
