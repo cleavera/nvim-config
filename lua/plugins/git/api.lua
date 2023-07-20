@@ -108,7 +108,12 @@ end
 
 M.quick_commit = function()
   local message = vim.fn.input('Commit message: ')
-  vim.api.nvim_exec2("!git commit -m=\"" .. message .. "\"", { output = true })
+
+  if message == "" then
+    return
+  end
+
+  vim.api.nvim_exec2("!git commit -m \"" .. message .. "\"", { output = true })
 end
 
 return M;
