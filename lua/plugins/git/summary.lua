@@ -79,8 +79,7 @@ function Handler:open()
   local change = self:_get_change(M.win)
 
   if change ~= nil then
-    self:close()
-    vim.cmd.edit(change.file)
+    M:open_change(change)
   end
 end
 
@@ -110,23 +109,22 @@ function Handler:diff()
 
   if change ~= nil then
     require('plugins.git.diff'):open(change)
-
-    vim.api.nvim_create_autocmd('User', {
-      pattern = {
-        "GitGudDiffClose"
-      },
-      callback = function()
-        vim.schedule(function()
-          vim.api.nvim_set_current_win(M.win)
-        end)
-      end,
-      once = true
-    })
   end
 end
 
 function Handler:close()
-  vim.api.nvim_win_close(M.win, true)
+  M:close()
+end
+
+function M:open_change(change)
+  self:close()
+  vim.cmd.edit(change.file)
+end
+
+function M:close()
+  if M.win ~= nil then
+    vim.api.nvim_win_close(M.win, true)
+  end
 end
 
 function M:get_buf()
@@ -175,6 +173,7 @@ function M:provider(change)
 end
 
 function M:open()
+  self:init()
   local b = self:get_buf()
   self:get_window()
   self:render(b)
@@ -234,6 +233,28 @@ function M:render(b)
   vim.api.nvim_buf_set_keymap(b, "n", "o", exec_handler(handler_commands.open), {})
   vim.api.nvim_buf_set_keymap(b, "n", "<Enter>", exec_handler(handler_commands.toggle_section, handler_commands.diff), {})
   vim.api.nvim_buf_set_keymap(b, "n", "c", exec_handler(handler_commands.quick_commit), {})
+end
+
+function M:init()
+  if self.initialised then
+    return
+  end
+
+  self.initialised = true
+
+  vim.api.nvim_create_autocmd('User', {
+    pattern = {
+      "GitGudDiffClose"
+    },
+    callback = function()
+      if M.win and dialog:is_open(M.win) then
+        vim.schedule(function()
+          vim.api.nvim_set_current_win(M.win)
+        end)
+      end
+    end,
+    once = false
+  })
 end
 
 function M:_tracked_section(handlers, write_buffer)

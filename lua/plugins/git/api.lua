@@ -86,6 +86,30 @@ M.unmodifiedFileContents = function(file)
   return lines
 end
 
+M.get_prev_change = function(change)
+  local changes = M.status()
+
+  for i,c in ipairs(changes) do
+    if c.file == change.file then
+      return changes[i - 1]
+    end
+  end
+
+  return nil
+end
+
+M.get_next_change = function(change)
+  local changes = M.status()
+
+  for i,c in ipairs(changes) do
+    if c.file == change.file then
+      return changes[i + 1]
+    end
+  end
+
+  return nil
+end
+
 M.add = function(file)
   vim.api.nvim_exec2("!git add " .. file, { output = true })
 end
