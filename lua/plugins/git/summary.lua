@@ -247,7 +247,7 @@ function M:init()
       "GitGudDiffClose"
     },
     callback = function()
-      if M.win and dialog:is_open(M.win) then
+      if M.win then
         vim.schedule(function()
           vim.api.nvim_set_current_win(M.win)
         end)
