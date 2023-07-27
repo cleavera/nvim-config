@@ -42,3 +42,11 @@ vim.keymap.set('n', '<leader>bk', function()
     vim.api.nvim_set_current_buf(next_buf)
   end
 end, { desc = "Previous" })
+
+vim.keymap.set('n', '<leader>bs', function()
+  vim.api.nvim_set_current_buf(vim.api.nvim_create_buf(false, true))
+end, { desc = "Scratch" })
+
+vim.keymap.set('n', '<C-s>', '<cmd>wa<cr>')
+vim.keymap.set('i', '<C-s>', '<cmd>wa<cr>')
+vim.keymap.set('v', '<C-s>', '<cmd>wa<cr>')
