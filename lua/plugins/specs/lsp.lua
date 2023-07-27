@@ -19,6 +19,7 @@ return {
         remap_for_buffer("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format()<cr>", { desc = "Format" })
         remap_for_buffer("n", "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>", { desc = "Rename" })
         remap_for_buffer("n", "<leader>ld", "<cmd>lua vim.diagnostic.open_float()<cr>", { desc = "Diagnostics" })
+        remap_for_buffer("n", "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", { desc = "Action" })
       end
 
       local function get_file_name(file)
