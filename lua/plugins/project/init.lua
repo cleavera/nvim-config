@@ -7,6 +7,8 @@ function M:setup()
     },
     callback = function()
       require('plugins.project.api'):add_recent(vim.fn.getcwd())
+      local tree = require('nvim-tree.api').tree
+      tree.change_root(vim.fn.getcwd())
     end,
   })
 end
