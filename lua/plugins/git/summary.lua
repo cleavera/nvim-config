@@ -3,7 +3,8 @@ local M = {
   _handlers = Handler,
   _store = {
     showing_tracked = true,
-    showing_untracked = true
+    showing_untracked = true,
+    showing_commits = true
   }
 }
 local dialog = require('plugins.git.dialog')
@@ -96,6 +97,8 @@ function Handler:toggle_section()
       M._store.showing_tracked = not M._store.showing_tracked
     elseif section == 'untracked' then
       M._store.showing_untracked = not M._store.showing_untracked
+    elseif section == 'commits' then
+      M._store.showing_commits = not M._store.showing_commits
     end
 
     M:render(M.buf)
@@ -205,6 +208,7 @@ function M:render(b)
 
   self:_tracked_section(handlers, write_buffer)
   self:_untracked_section(handlers, write_buffer)
+  self:_origin_section(handlers, write_buffer)
 
   vim.api.nvim_buf_set_option(b, 'modifiable', true)
   vim.api.nvim_buf_set_lines(b, 0, -1, false, write_buffer)
@@ -297,6 +301,31 @@ function M:_untracked_section(handlers, write_buffer)
     table.insert(handlers.sections, { name = "untracked", line = #write_buffer })
   end
   table.insert(write_buffer, "")
+end
+
+function M:_origin_section(handlers, write_buffer)
+  local commits = api.get_unpushed_commits()
+
+  if next(commits) == nil then
+    return
+  end
+
+  if not M._store.showing_commits then
+    table.insert(write_buffer,
+      " " .. api.get_current_branch() .. " -> " .. api.get_remote_branch() .. " (" .. #commits .. " commits)")
+    table.insert(handlers.sections, { name = "commits", line = #write_buffer })
+
+    return
+  end
+
+  table.insert(write_buffer,
+    " " .. api.get_current_branch() .. " -> " .. api.get_remote_branch() .. " (" .. #commits .. " commits)")
+  table.insert(handlers.sections, { name = "commits", line = #write_buffer })
+  table.insert(write_buffer, "")
+
+  for _, commit in ipairs(commits) do
+    table.insert(write_buffer, "   " .. commit.message)
+  end
 end
 
 return M

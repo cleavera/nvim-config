@@ -89,7 +89,7 @@ end
 M.get_prev_change = function(change)
   local changes = M.status()
 
-  for i,c in ipairs(changes) do
+  for i, c in ipairs(changes) do
     if c.file == change.file then
       return changes[i - 1]
     end
@@ -101,7 +101,7 @@ end
 M.get_next_change = function(change)
   local changes = M.status()
 
-  for i,c in ipairs(changes) do
+  for i, c in ipairs(changes) do
     if c.file == change.file then
       return changes[i + 1]
     end
@@ -140,4 +140,39 @@ M.quick_commit = function()
   vim.api.nvim_exec2("!git commit -m \"" .. message .. "\"", { output = true })
 end
 
-return M;
+M.get_current_branch = function()
+  local scripts = vim.api.nvim_exec2("!git rev-parse --abbrev-ref HEAD", { output = true })
+  local lines = vim.split(scripts.output, '\n')
+
+  return lines[3]
+end
+
+M.get_remote_branch = function()
+  local scripts = vim.api.nvim_exec2("!git branch -vv", { output = true })
+
+  local lines = vim.split(scripts.output, '\n')
+
+  return lines[3]:gsub("^[%s%S]+%[([%S]+): [%s%S]+][%s%S]+$", "%1");
+end
+
+M.get_unpushed_commits = function()
+  local scripts = vim.api.nvim_exec2("!git cherry -v", { output = true })
+
+  local lines = vim.split(scripts.output, '\n')
+  local commits = {}
+
+  for i, line in ipairs(lines) do
+    if i > 2 then
+      if line:sub(1, 1) == "+" then
+        table.insert(commits, {
+          id = line:gsub("^%+ (%S+) ([%s%S]+)$", "%1"),
+          message = line:gsub("^%+ (%S+) ([%s%S]+)$", "%2")
+        })
+      end
+    end
+  end
+
+  return commits
+end
+
+return M
