@@ -16,8 +16,8 @@ local function calculate_size(relative_size, total_padding)
   }
 
   return {
-    cols = adjusted_size.cols * relative_size.cols,
-    rows = adjusted_size.rows * relative_size.rows
+    cols = math.floor(adjusted_size.cols * relative_size.cols),
+    rows = math.floor(adjusted_size.rows * relative_size.rows)
   }
 end
 
