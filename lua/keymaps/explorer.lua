@@ -1,5 +1,4 @@
-vim.keymap.set("n", "<leader>e", "<cmd>NvimTreeToggle<cr>", { desc = "Toggle explorer" })
-vim.keymap.set("n", "<leader>o", function()
+vim.keymap.set("n", "<leader>e", function()
   local api = require("nvim-tree.api")
 
   if vim.bo.filetype == "NvimTree" then
