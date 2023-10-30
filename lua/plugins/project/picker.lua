@@ -18,7 +18,7 @@ function M:open_picker(source)
         local selection = action_state.get_selected_entry()
 
         vim.fn.chdir(selection[1])
-        vim.cmd.intro()
+        vim.cmd("bufdo bwipeout")
       end)
 
       return true
