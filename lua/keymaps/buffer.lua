@@ -13,6 +13,10 @@ vim.keymap.set('n', '<leader>bc', function()
   vim.api.nvim_buf_delete(vim.api.nvim_get_current_buf(), {})
 end, { desc = "Close" })
 
+vim.keymap.set('n', '<leader>bC', function()
+  vim.cmd('bufdo bwipeout')
+end, { desc = "Close all" })
+
 vim.keymap.set('n', '<leader>bs', function()
   vim.api.nvim_set_current_buf(vim.api.nvim_create_buf(false, true))
 end, { desc = "Scratch buffer" })
