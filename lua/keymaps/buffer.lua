@@ -3,6 +3,12 @@ which_key.register({
   ["<leader>b"] = { name = "Buffer" }
 })
 
+local function get_bufs()
+  return vim.tbl_filter(function(bufnr)
+    return vim.api.nvim_buf_get_option(bufnr, "buflisted") and vim.api.nvim_buf_is_valid(bufnr)
+  end, vim.api.nvim_list_bufs())
+end
+
 vim.keymap.set('n', '<leader>bc', function()
   vim.api.nvim_buf_delete(vim.api.nvim_get_current_buf(), {})
 end, { desc = "Close" })
@@ -12,7 +18,7 @@ vim.keymap.set('n', '<leader>bs', function()
 end, { desc = "Scratch buffer" })
 
 vim.keymap.set('n', '<leader>bj', function()
-  local bufs = vim.api.nvim_list_bufs()
+  local bufs = get_bufs()
   local current_buf = vim.api.nvim_get_current_buf()
   local next_buf = nil
 
@@ -28,7 +34,7 @@ vim.keymap.set('n', '<leader>bj', function()
 end, { desc = "Next" })
 
 vim.keymap.set('n', '<leader>bk', function()
-  local bufs = vim.api.nvim_list_bufs()
+  local bufs = get_bufs()
   local current_buf = vim.api.nvim_get_current_buf()
   local next_buf = nil
 
