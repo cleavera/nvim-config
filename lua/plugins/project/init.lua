@@ -7,8 +7,12 @@ function M:setup()
     },
     callback = function()
       require('plugins.project.api'):add_recent(vim.fn.getcwd())
-      local tree = require('nvim-tree.api').tree
-      tree.change_root(vim.fn.getcwd())
+      local explorer = require('nvim-tree.api')
+      explorer.tree.change_root(vim.fn.getcwd())
+      explorer.tree.open()
+      local fterm = require('FTerm')
+      fterm.open()
+      fterm.exit()
     end,
   })
 end
