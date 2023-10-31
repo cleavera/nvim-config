@@ -16,3 +16,7 @@ end, { desc = "Toggle terminal" })
 vim.keymap.set('n', '<esc>', function ()
   fterm.close()
 end, { desc = "Toggle terminal" })
+
+vim.keymap.set('n', '<F7>', function()
+  fterm.open()
+end, { desc = "Open" })
