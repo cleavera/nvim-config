@@ -40,8 +40,9 @@ return {
         require("plugins.config.heirline.space"),
       },
       tabline = {
-        require("plugins.config.heirline.explorer-padding"),
         require("plugins.config.heirline.buffers"),
+        require("plugins.config.heirline.spacer"),
+        require("plugins.config.heirline.project-name"),
       },
     }
   end,
