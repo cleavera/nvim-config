@@ -1,4 +1,5 @@
 return {
-    "catppuccin/nvim"
+    "catppuccin/nvim",
+    "morhetz/gruvbox"
 }
 
