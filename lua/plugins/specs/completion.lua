@@ -1,5 +1,8 @@
 return {
   {
+    "Exafunction/codeium.vim",
+  },
+  {
     "L3MON4D3/LuaSnip",
   },
   {

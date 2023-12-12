@@ -9,7 +9,7 @@ return {
     },
     build = ":MasonUpdate",
     config = function()
-      local on_attach = function(_, buffer)
+      local on_attach = function(client, buffer)
         local function remap_for_buffer(...)
           vim.api.nvim_buf_set_keymap(buffer, ...)
         end
