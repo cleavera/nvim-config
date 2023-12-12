@@ -3,10 +3,50 @@ which_key.register({
   ["<leader>b"] = { name = "Buffer" }
 })
 
+local pickers = require('telescope.pickers')
+local finders = require('telescope.finders')
+local sorters = require('telescope.sorters')
+local dropdown = require('telescope.themes').get_dropdown({})
+local actions = require('telescope.actions')
+local action_state = require('telescope.actions.state')
+
 local function get_bufs()
   return vim.tbl_filter(function(bufnr)
     return vim.api.nvim_buf_get_option(bufnr, "buflisted") and vim.api.nvim_buf_is_valid(bufnr)
   end, vim.api.nvim_list_bufs())
+end
+
+local function open_picker(source)
+  local opts = {
+    prompt_title = "Buffers",
+    sorter = sorters.get_fzy_sorter({}),
+    finder = finders.new_table(source),
+    attach_mappings = function(prompt_bufnr, _)
+      actions.select_default:replace(function()
+        actions.close(prompt_bufnr)
+        local selection = action_state.get_selected_entry()
+
+        vim.cmd('e ' .. selection[1])
+      end)
+
+      return true
+    end
+  }
+
+  local projects = pickers.new(opts, dropdown)
+
+  projects:find()
+end
+
+local function all_buffers_picker()
+  local bufs = get_bufs()
+
+  local namedBuffers = {}
+  for k, v in pairs(bufs) do
+    namedBuffers[k] = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(v), ":.")
+  end
+
+  open_picker(namedBuffers)
 end
 
 vim.keymap.set('n', '<leader>bc', function()
@@ -56,6 +96,13 @@ end, { desc = "Previous" })
 vim.keymap.set('n', '<leader>bs', function()
   vim.api.nvim_set_current_buf(vim.api.nvim_create_buf(false, true))
 end, { desc = "Scratch" })
+
+vim.keymap.set('n', '<leader>br', '<cmd>e<cr>', { desc = "Reload" })
+vim.keymap.set('n', '<leader>bb', '<cmd>b #<cr>', { desc = "Last" })
+
+vim.keymap.set('n', '<leader>bl', function()
+  all_buffers_picker()
+end, { desc = "List buffers" })
 
 vim.keymap.set('n', '<C-s>', '<cmd>wa<cr>')
 vim.keymap.set('i', '<C-s>', '<cmd>wa<cr>')
