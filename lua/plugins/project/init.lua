@@ -1,9 +1,13 @@
 local M = {}
 
+local function string_starts(str, start)
+   return string.sub(str, 1, string.len(start)) == start
+end
+
 local function branch_name()
 	local branch = vim.fn.system("git rev-parse --abbrev-ref HEAD")
 	branch = branch:gsub("%s", "")
-	if branch ~= "" then
+	if branch ~= "" and not string_starts(branch, "fatal") then
 		return branch
 	else
 		return ""
