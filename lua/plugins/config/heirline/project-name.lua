@@ -4,8 +4,8 @@ return {
   end,
 
   provider = function(self)
-    return " " .. vim.g.project.name .. " "
+    return vim.g.project.name 
   end,
 
-  hl = { fg = "blue" },
+  hl = { fg = "project" },
 }

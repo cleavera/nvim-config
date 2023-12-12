@@ -37,7 +37,7 @@ local FileName = {
         end
         return filename
     end,
-    hl = { fg = utils.get_highlight("Directory").fg },
+    hl = { fg = "directory" },
 }
 
 local FileFlags = {
@@ -46,14 +46,14 @@ local FileFlags = {
             return vim.bo.modified
         end,
         provider = "[+]",
-        hl = { fg = "green" },
+        hl = { fg = "modified" },
     },
     {
         condition = function()
             return not vim.bo.modifiable or vim.bo.readonly
         end,
         provider = "",
-        hl = { fg = "orange" },
+        hl = { fg = "readonly" },
     },
 }
 
@@ -66,7 +66,7 @@ local FileNameModifer = {
     hl = function()
         if vim.bo.modified then
             -- use `force` because we need to override the child's hl foreground
-            return { fg = "cyan", bold = true, force=true }
+            return { fg = "filename", bold = true, force=true }
         end
     end,
 }

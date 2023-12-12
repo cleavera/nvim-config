@@ -6,7 +6,7 @@ return {
   end,
 
 
-  hl = { fg = "orange" },
+  hl = { fg = "git_branch" },
 
 
   { -- git branch name

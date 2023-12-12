@@ -46,13 +46,13 @@ return {
             t = "T",
         },
         mode_colors = {
-            n = { fg = "gray", bg = "green", bold = true },
-            i = { fg = "gray", bg = "red", bold = true },
-            v = { fg = "gray", bg = "cyan", bold = true },
-            V = { fg = "gray", bg = "cyan", bold = true },
-            r = { fg = "white", bg = "darkred", bold = true },
-            R = { fg = "white", bg = "darkred", bold = true },
-            c = { fg = "gray", bg = "purple", bold = true },
+            n = { fg = "normal_mode_fg", bg = "normal_mode_bg", bold = true },
+            i = { fg = "insert_mode_fg", bg = "insert_mode_bg", bold = true },
+            v = { fg = "visual_mode_fg", bg = "visual_mode_bg", bold = true },
+            V = { fg = "visual_mode_fg", bg = "visual_mode_bg", bold = true },
+            r = { fg = "replace_mode_fg", bg = "replace_mode_bg", bold = true },
+            R = { fg = "replace_mode_fg", bg = "replace_mode_bg", bold = true },
+            c = { fg = "change_mode_fg", bg = "change_mode_bg", bold = true },
         }
     },
     -- We can now access the value of mode() that, by now, would have been

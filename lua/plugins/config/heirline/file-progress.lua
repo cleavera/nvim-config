@@ -1,5 +1,5 @@
 local ruler = {
-  provider = "[%2l/%L]:%2c"
+  provider = "[%2l/%2L]:%2c"
 }
 
 return {
