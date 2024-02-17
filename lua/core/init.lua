@@ -6,8 +6,6 @@ M.setup = function()
   require("plugins")
   require("keymaps")
   require("core.commands")
-
-  vim.cmd.colorscheme "catppuccin"
 end
 
 return M
