@@ -1,4 +1,5 @@
 local M = {}
+local api = require('plugins.project.api')
 
 local function string_starts(str, start)
    return string.sub(str, 1, string.len(start)) == start
@@ -20,7 +21,7 @@ function M:setup()
       '*'
     },
     callback = function()
-      require('plugins.project.api'):add_recent(vim.fn.getcwd())
+      api:add_recent(vim.fn.getcwd())
       local explorer = require('nvim-tree.api')
       explorer.tree.change_root(vim.fn.getcwd())
       explorer.tree.open()
@@ -28,10 +29,19 @@ function M:setup()
       local project = {
         name = vim.fn.fnamemodify(vim.fn.getcwd(), ':t'),
         branch = branch,
-        is_git_project = branch ~= ''
+        is_git_project = branch ~= '',
+        project_type = api:get_project_type()
       }
       vim.g.project = project
-    end,
+
+      if project.project_type == api.project_type.RUST then
+        vim.cmd.colorscheme('catppuccin-latte')
+      end
+
+      if project.project_type == api.project_type.NODE then
+        vim.cmd.colorscheme('catppuccin-frappe')
+      end
+    end
   })
 end
 

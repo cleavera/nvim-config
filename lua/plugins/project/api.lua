@@ -1,4 +1,9 @@
-local M = {}
+local M = {
+  project_type = {
+    NODE = 'node',
+    RUST = 'rust'
+  }
+}
 
 function M:list_recent()
   local project_file = vim.fn.stdpath('cache') .. '/.projects'
@@ -53,6 +58,16 @@ function M:list(projects_root)
   end
 
   return items
+end
+
+function M:get_project_type()
+  if vim.fn.filereadable('Cargo.toml') == 1 then
+    return self.project_type.RUST
+  end
+
+  if vim.fn.filereadable('package.json') == 1 then
+    return self.project_type.NODE
+  end
 end
 
 return M
