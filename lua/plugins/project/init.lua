@@ -41,6 +41,10 @@ function M:setup()
       if project.project_type == api.project_type.NODE then
         vim.cmd.colorscheme('catppuccin-frappe')
       end
+
+      if project.project_type == api.project_type.UNKNOWN then
+        vim.cmd.colorscheme('catppuccin-mocha')
+      end
     end
   })
 end
