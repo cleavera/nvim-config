@@ -3,7 +3,7 @@ local M = {}
 M.Type = { ADD = "A", CHANGE = "M", DELETE = "D", UNKNOWN = " ", UNTRACKED = "?" }
 
 M.status = function()
-  local scripts = vim.api.nvim_exec2("!git status --porcelain", { output = true })
+  local scripts = vim.api.nvim_exec2("!git status --porcelain -uall", { output = true })
   local lines = vim.split(scripts.output, '\n')
   local items = {}
 
