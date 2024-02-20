@@ -25,6 +25,15 @@ local function open_picker(source)
   local opts = {
     prompt_title = "Buffers",
     sorter = sorters.get_fzy_sorter({}),
+    layout_config = {
+      width = function(_, max_columns, _)
+        return math.min(max_columns, 120)
+      end,
+
+      height = function(_, _, max_lines)
+        return math.min(max_lines, 15)
+      end,
+    },
     finder = finders.new_table({
       results = source,
       entry_maker = function(entry)
