@@ -28,7 +28,9 @@ return {
       capabilities = capabilities,
       init_options = {
         preferences = {
-          quotePreference = "single"
+          quotePreference = "single",
+          importModuleSpecifierPreference = "relative",
+          importModuleSpecifierEnding = "minimal"
         }
       },
       commands = {
