@@ -4,8 +4,9 @@ return {
     dependencies = {
       "williamboman/mason-lspconfig.nvim",
       "neovim/nvim-lspconfig",
-      "folke/neodev.nvim"
-      -- "github/copilot.vim"
+      "folke/neodev.nvim",
+      "nvim-lua/plenary.nvim",
+      "pmizio/typescript-tools.nvim"
     },
     build = ":MasonUpdate",
     config = function()
