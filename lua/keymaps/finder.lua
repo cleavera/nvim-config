@@ -9,7 +9,6 @@ local sorters = require('telescope.sorters')
 local themes = require('telescope.themes')
 local entry_display = require('telescope.pickers.entry_display') 
 
-vim.keymap.set('n', '<leader>ff', telescope.find_files, { desc = "Find file" })
 vim.keymap.set('n', '<leader>fg', telescope.live_grep, { desc = "Search files" })
 vim.keymap.set('n', '<leader>fb', telescope.buffers, { desc = "Find buffer" })
 vim.keymap.set('n', '<leader>fh', telescope.help_tags, { desc = "Search help" })
@@ -18,6 +17,20 @@ vim.keymap.set('n', '<leader>fC', telescope.colorscheme, { desc = "Color schemes
 
 local function get_file_name(path)
   return vim.fn.fnamemodify(path, ":t")
+end
+
+local function find_files(opts)
+  return telescope.find_files(themes.get_dropdown({
+    layout_config = {
+      width = function(_, max_columns, _)
+        return math.min(max_columns, 120)
+      end,
+
+      height = function(_, _, max_lines)
+        return math.min(max_lines, 20)
+      end,
+    }
+  }))
 end
 
 local function modified_files(opts)
@@ -64,28 +77,6 @@ local function modified_files(opts)
   );
 end
 
+vim.keymap.set('n', '<leader>ff', find_files, { desc = "Find file" })
 vim.keymap.set('n', '<leader>fm', modified_files, { desc = "Find modified file" })
-  -- local opts = {
-  --   attach_mappings = function(prompt_bufnr, map)
-  --     actions.select_default:replace(function()
-  --       actions.close(prompt_bufnr)
-  --       local selection = action_state.get_selected_entry()
-  --
-  --       vim.cmd('e ' .. selection.value)
-  --     end)
-  --
-  --     map({ "n", "i" }, "<C-c>", function()
-  --       local selection = action_state.get_selected_entry()
-  --
-  --       selection.valid = false
-  --       vim.api.nvim_buf_delete(vim.fn.bufnr(selection.value), {})
-  --     end)
-  --
-  --     return true
-  --   end
-  -- }
-  --
-  -- local projects = pickers.new(opts, dropdown)
-  --
---   -- projects:find()
--- end
+vim.keymap.set('n', '<a-h>', '<cmd>noh<cr>', { desc = "Clear search" })
