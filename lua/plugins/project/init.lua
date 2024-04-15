@@ -42,6 +42,10 @@ function M:setup()
         vim.cmd.colorscheme('catppuccin-frappe')
       end
 
+      if project.project_type == api.project_type.CSHARP then
+        vim.cmd.colorscheme('catppuccin-macchiato')
+      end
+
       if project.project_type == api.project_type.UNKNOWN then
         vim.cmd.colorscheme('catppuccin-mocha')
       end

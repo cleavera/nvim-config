@@ -2,6 +2,7 @@ local M = {
   project_type = {
     NODE = 'node',
     RUST = 'rust',
+    CSHARP = 'c#',
     UNKNOWN = 'unknown'
   }
 }
@@ -68,6 +69,10 @@ function M:get_project_type()
 
   if vim.fn.filereadable('package.json') == 1 then
     return self.project_type.NODE
+  end
+
+  if vim.fn.filereadable('nuget.config') == 1 then
+    return self.project_type.CSHARP
   end
 
   return self.project_type.UNKNOWN

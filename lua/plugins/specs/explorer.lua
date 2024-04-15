@@ -9,6 +9,11 @@ return {
   },
   config = function()
     require("nvim-tree").setup({
+      actions = {
+        change_dir = {
+          restrict_above_cwd = true
+        }
+      },
       disable_netrw = true,
       hijack_netrw = true,
       respect_buf_cwd = true,
@@ -32,6 +37,7 @@ return {
         vim.api.nvim_buf_set_keymap(bufnr, "n", "<S-Right>", "<cmd>lua if require('nvim-tree.api').tree.get_node_under_cursor().name == '..' then vim.api.nvim_feedkeys('j', 'n', false) elseif (require('nvim-tree.api').tree.get_node_under_cursor().fs_stat.type == 'directory' and (not require('nvim-tree.api').tree.get_node_under_cursor().open)) then require('nvim-tree.api').node.open.edit() vim.api.nvim_feedkeys('j', 'n', false) end<cr>", {})
         vim.api.nvim_buf_set_keymap(bufnr, "n", "<S-Down>", "<cmd>lua if require('nvim-tree.api').tree.get_node_under_cursor().fs_stat.type == 'file' then require('nvim-tree.api').node.navigate.parent() end require('nvim-tree.api').node.navigate.sibling.next()<cr>", {})
         vim.api.nvim_buf_set_keymap(bufnr, "n", "<S-Up>", "<cmd>lua if require('nvim-tree.api').tree.get_node_under_cursor().fs_stat.type == 'file' then require('nvim-tree.api').node.navigate.parent() end require('nvim-tree.api').node.navigate.sibling.prev()<cr>", {})
+        vim.api.nvim_buf_set_keymap(bufnr, "n", "<a-o>", "<cmd>lua vim.fn.chdir(require('nvim-tree.api').tree.get_node_under_cursor().absolute_path)<cr>", {})
       end,
       view = {
         relativenumber = true,
