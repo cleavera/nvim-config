@@ -8,5 +8,5 @@ vim.keymap.set("n", "<up>", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent =
 
 vim.keymap.set("n", "*", "<cmd>let @/='\\<'.expand('<cword>').'\\>'<CR>", { silent = true })
 
-vim.keymap.set("v", "J", ":<cmd>m '>+1<CR>gv=gv<CR>")
-vim.keymap.set("v", "K", ":<cmd>m '<-2<CR>gv=gv<CR>")
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
