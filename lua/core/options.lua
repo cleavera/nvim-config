@@ -23,4 +23,8 @@ o.undofile = true
 o.hlsearch = true
 o.incsearch = true
 o.scrolloff = 8
-
+o.updatetime = 250
+o.timeoutlen = 300
+o.list = true
+o.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+o.cursorline = true

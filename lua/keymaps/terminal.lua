@@ -14,6 +14,8 @@ vim.keymap.set('t', '<a-x>', function ()
   api.close()
 end, { desc = "Close terminal" })
 
+vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+
 vim.keymap.set('n', '<a-x>', function ()
   api.close()
 end, { desc = "Toggle terminal" })

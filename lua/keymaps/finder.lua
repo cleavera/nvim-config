@@ -9,29 +9,37 @@ local sorters = require('telescope.sorters')
 local themes = require('telescope.themes')
 local entry_display = require('telescope.pickers.entry_display') 
 
-vim.keymap.set('n', '<leader>fg', telescope.live_grep, { desc = "Search files" })
+local theme = themes.get_dropdown({
+  layout_strategy = "vertical",
+  path_display = "shorten",
+  layout_config = {
+    prompt_position = "top",
+    width = function(_, max_columns, _)
+      return math.min(max_columns, 120)
+    end,
+    height = function(_, _, max_lines)
+      return max_lines - 1
+    end,
+  }
+})
+
+vim.keymap.set('n', '<leader>fg', function() return telescope.live_grep(theme) end, { desc = "Search files" })
+vim.keymap.set('n', '<leader>ft', function() return telescope.grep_string(theme) end, { desc = "Search for this" })
+vim.keymap.set('n', '<leader>ff', function() return telescope.find_files(theme) end, { desc = "Find file" })
 vim.keymap.set('n', '<leader>fb', telescope.buffers, { desc = "Find buffer" })
 vim.keymap.set('n', '<leader>fh', telescope.help_tags, { desc = "Search help" })
 vim.keymap.set('n', '<leader>fc', telescope.commands, { desc = "Commmands" })
 vim.keymap.set('n', '<leader>fC', telescope.colorscheme, { desc = "Color schemes" })
+vim.keymap.set("n", "<leader>lgd", telescope.lsp_definitions, { desc = "Goto definition" })
+vim.keymap.set("n", "<leader>lgr", telescope.lsp_references, { desc = "Goto references" })
+vim.keymap.set("n", "<leader>lgi", telescope.lsp_implementations, { desc = "Goto implementation" })
+vim.keymap.set("n", "<leader>lgD", vim.lsp.buf.declaration, { desc = "Goto declaration" })
+vim.keymap.set("n", "<leader>lgt", telescope.lsp_type_definitions, { desc = "Goto type definition" })
 
 local function get_file_name(path)
   return vim.fn.fnamemodify(path, ":t")
 end
 
-local function find_files(opts)
-  return telescope.find_files(themes.get_dropdown({
-    layout_config = {
-      width = function(_, max_columns, _)
-        return math.min(max_columns, 120)
-      end,
-
-      height = function(_, _, max_lines)
-        return math.min(max_lines, 20)
-      end,
-    }
-  }))
-end
 
 local function modified_files(opts)
   local changes = require('plugins.git.api').status()
@@ -77,6 +85,5 @@ local function modified_files(opts)
   );
 end
 
-vim.keymap.set('n', '<leader>ff', find_files, { desc = "Find file" })
 vim.keymap.set('n', '<leader>fm', modified_files, { desc = "Find modified file" })
 vim.keymap.set('n', '<a-h>', '<cmd>noh<cr>', { desc = "Clear search" })

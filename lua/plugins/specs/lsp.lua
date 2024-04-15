@@ -6,7 +6,8 @@ return {
       "neovim/nvim-lspconfig",
       "folke/neodev.nvim",
       "nvim-lua/plenary.nvim",
-      "pmizio/typescript-tools.nvim"
+      "pmizio/typescript-tools.nvim",
+      "j-hui/fidget.nvim",
     },
     build = ":MasonUpdate",
     config = function()
@@ -17,11 +18,14 @@ return {
 
         vim.api.nvim_buf_set_option(buffer, "omnifunc", "v:lua.vim.lsp.omnifunc")
         remap_for_buffer("n", "<leader>lh", "<cmd>lua vim.lsp.buf.hover()<cr>", { desc = "Peek" })
-        remap_for_buffer("n", "<leader>lg", "<cmd>lua vim.lsp.buf.definition()<cr>", { desc = "Goto definition" })
         remap_for_buffer("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format()<cr>", { desc = "Format" })
         remap_for_buffer("n", "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>", { desc = "Rename" })
         remap_for_buffer("n", "<leader>ld", "<cmd>lua vim.diagnostic.open_float()<cr>", { desc = "Diagnostics" })
         remap_for_buffer("n", "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", { desc = "Action" })
+        remap_for_buffer('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
+        remap_for_buffer('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
+        remap_for_buffer('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
+        remap_for_buffer('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
       end
 
       local function get_file_name(file)
