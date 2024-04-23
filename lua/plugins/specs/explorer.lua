@@ -30,7 +30,7 @@ return {
 
         api.config.mappings.default_on_attach(bufnr)
 
-        vim.api.nvim_buf_set_keymap(bufnr, "n", "<a-x>", "<cmd>NvimTreeClose<cr>", {})
+        vim.api.nvim_buf_set_keymap(bufnr, "n", "<Esc>", "<cmd>NvimTreeClose<cr>", {})
         vim.api.nvim_buf_set_keymap(bufnr, "n", "<Left>", "<cmd>lua require('nvim-tree.api').node.navigate.parent_close()<cr>", {})
         vim.api.nvim_buf_set_keymap(bufnr, "n", "<S-Left>", "<cmd>lua require('nvim-tree.api').node.navigate.parent()<cr>", {})
         vim.api.nvim_buf_set_keymap(bufnr, "n", "<Right>", "<cmd>lua if require('nvim-tree.api').tree.get_node_under_cursor().name == '..' then vim.api.nvim_feedkeys('j', 'n', false) elseif (require('nvim-tree.api').tree.get_node_under_cursor().fs_stat.type == 'directory' and (not require('nvim-tree.api').tree.get_node_under_cursor().open)) then require('nvim-tree.api').node.open.edit() vim.api.nvim_feedkeys('j', 'n', false) end<cr>", {})
