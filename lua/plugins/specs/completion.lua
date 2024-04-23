@@ -3,24 +3,16 @@ return {
     "Exafunction/codeium.vim",
   },
   {
-    "L3MON4D3/LuaSnip",
-  },
-  {
     "hrsh7th/nvim-cmp",
     dependencies = {
-      "saadparwaiz1/cmp_luasnip",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-nvim-lsp",
     },
     opts = function()
       local cmp = require("cmp")
-      local luasnip = require("luasnip")
 
       return {
-        snippet = {
-          expand = function(args) luasnip.lsp_expand(args.body) end
-        },
         window = {
           completion = cmp.config.window.bordered(),
           documentation = cmp.config.window.bordered(),
@@ -45,7 +37,6 @@ return {
         },
         sources = cmp.config.sources {
           { name = "nvim_lsp", priority = 1000 },
-          { name = "luasnip", priority = 750 },
           { name = "buffer", priority = 500 },
           { name = "path", priority = 250 },
         },
