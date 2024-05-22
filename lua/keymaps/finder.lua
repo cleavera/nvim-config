@@ -24,7 +24,7 @@ local theme = themes.get_dropdown({
   }
 })
 
-vim.keymap.set('n', '<leader>fg', function() return telescope.live_grep(theme) end, { desc = "Search files" })
+vim.keymap.set('n', '<leader>fg', function() return require('telescope').extensions.live_grep_args.live_grep_args(theme) end, { desc = "Search files" })
 vim.keymap.set('n', '<leader>ft', function() return telescope.grep_string(theme) end, { desc = "Search for this" })
 vim.keymap.set('n', '<leader>ff', function() return telescope.find_files(theme) end, { desc = "Find file" })
 vim.keymap.set('n', '<leader>fb', telescope.buffers, { desc = "Find buffer" })
