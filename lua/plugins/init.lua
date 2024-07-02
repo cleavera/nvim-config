@@ -15,4 +15,3 @@ require("lazy").setup({
   { import = "plugins.specs" }
 })
 
-require('plugins.project'):setup()
