@@ -46,8 +46,6 @@ return {
         require("plugins.config.heirline.spacer"),
         require("plugins.config.heirline.lsp"),
         require("plugins.config.heirline.space"),
-        require("plugins.config.heirline.project-name"),
-        require("plugins.config.heirline.space"),
         require("plugins.config.heirline.git"),
         require("plugins.config.heirline.space"),
         require("plugins.config.heirline.file-progress"),
