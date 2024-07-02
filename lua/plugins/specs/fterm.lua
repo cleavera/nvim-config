@@ -2,7 +2,7 @@ return {
   'numToStr/FTerm.nvim',
   opts = function()
     return {
-      cmd = "powershell"
+      cmd = "zsh"
     }
   end
 }
