@@ -1,6 +1,6 @@
 local which_key = require("which-key")
-which_key.register({
-  ["<leader>t"] = { name = "Terminal" }
+which_key.add({
+  {"<leader>t", group = "Terminal" }
 })
 
 local fterm = require('FTerm')

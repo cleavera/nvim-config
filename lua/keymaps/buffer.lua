@@ -1,6 +1,6 @@
 local which_key = require("which-key")
-which_key.register({
-  ["<leader>b"] = { name = "Buffer" }
+which_key.add({
+  {"<leader>b", group = "Buffer" }
 })
 
 local pickers = require('telescope.pickers')

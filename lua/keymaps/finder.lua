@@ -1,7 +1,7 @@
 local which_key = require("which-key")
-which_key.register({
-  ["<leader>f"] = { name = "Finder" },
-  ["<leader>lg"] = { name = "Goto" }
+which_key.add({
+  { "<leader>f", group = "Finder" },
+  { "<leader>lg", group = "Goto" }
 })
 
 local telescope = require("telescope.builtin")
