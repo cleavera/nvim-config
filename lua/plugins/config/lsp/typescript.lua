@@ -1,5 +1,5 @@
 return {
-  name = "tsserver",
+  name = "ts_ls",
   setup = function(on_attach, capabilities)
     require("typescript-tools").setup {
       on_attach = function(client, buffer)
